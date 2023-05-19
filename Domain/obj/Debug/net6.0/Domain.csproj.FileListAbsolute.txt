@@ -1,0 +1,12 @@
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/Domain/bin/Debug/net6.0/Domain.deps.json
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/Domain/bin/Debug/net6.0/Domain.dll
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/Domain/bin/Debug/net6.0/ref/Domain.dll
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/Domain/bin/Debug/net6.0/Domain.pdb
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/Domain/obj/Debug/net6.0/Domain.csproj.AssemblyReference.cache
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/Domain/obj/Debug/net6.0/Domain.GeneratedMSBuildEditorConfig.editorconfig
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/Domain/obj/Debug/net6.0/Domain.AssemblyInfoInputs.cache
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/Domain/obj/Debug/net6.0/Domain.AssemblyInfo.cs
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/Domain/obj/Debug/net6.0/Domain.csproj.CoreCompileInputs.cache
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/Domain/obj/Debug/net6.0/Domain.dll
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/Domain/obj/Debug/net6.0/ref/Domain.dll
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/Domain/obj/Debug/net6.0/Domain.pdb

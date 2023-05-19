@@ -1,0 +1,11 @@
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/Application/bin/Debug/net6.0/Application.deps.json
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/Application/bin/Debug/net6.0/Application.dll
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/Application/bin/Debug/net6.0/ref/Application.dll
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/Application/bin/Debug/net6.0/Application.pdb
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/Application/obj/Debug/net6.0/Application.GeneratedMSBuildEditorConfig.editorconfig
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/Application/obj/Debug/net6.0/Application.AssemblyInfoInputs.cache
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/Application/obj/Debug/net6.0/Application.AssemblyInfo.cs
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/Application/obj/Debug/net6.0/Application.csproj.CoreCompileInputs.cache
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/Application/obj/Debug/net6.0/Application.dll
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/Application/obj/Debug/net6.0/ref/Application.dll
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/Application/obj/Debug/net6.0/Application.pdb

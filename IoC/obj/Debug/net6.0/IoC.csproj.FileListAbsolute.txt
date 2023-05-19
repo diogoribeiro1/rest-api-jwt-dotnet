@@ -1,0 +1,12 @@
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/IoC/bin/Debug/net6.0/IoC.deps.json
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/IoC/bin/Debug/net6.0/IoC.dll
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/IoC/bin/Debug/net6.0/ref/IoC.dll
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/IoC/bin/Debug/net6.0/IoC.pdb
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/IoC/obj/Debug/net6.0/IoC.csproj.AssemblyReference.cache
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/IoC/obj/Debug/net6.0/IoC.GeneratedMSBuildEditorConfig.editorconfig
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/IoC/obj/Debug/net6.0/IoC.AssemblyInfoInputs.cache
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/IoC/obj/Debug/net6.0/IoC.AssemblyInfo.cs
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/IoC/obj/Debug/net6.0/IoC.csproj.CoreCompileInputs.cache
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/IoC/obj/Debug/net6.0/IoC.dll
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/IoC/obj/Debug/net6.0/ref/IoC.dll
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/IoC/obj/Debug/net6.0/IoC.pdb

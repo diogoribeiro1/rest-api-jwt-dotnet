@@ -1,9 +1,5 @@
-using System.Security.Claims;
 using System.Text;
-using Api;
-using Api.Model;
-using Api.Repository;
-using Api.Services;
+using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 

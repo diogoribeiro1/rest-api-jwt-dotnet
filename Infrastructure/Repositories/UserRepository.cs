@@ -1,6 +1,5 @@
-using Api.Model;
-
-namespace Api.Repository;
+using Domain.Models;
+namespace Infrastructure.Repositories;
 
 public static class UserRepository
 {

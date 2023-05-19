@@ -1,11 +1,62 @@
 {
   "version": 3,
   "targets": {
-    "net6.0": {}
+    "net6.0": {
+      "Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Application.dll": {}
+        }
+      },
+      "Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Domain.dll": {}
+        }
+      },
+      "IoC/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/IoC.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/IoC.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Application/1.0.0": {
+      "type": "project",
+      "path": "../Application/Application.csproj",
+      "msbuildProject": "../Application/Application.csproj"
+    },
+    "Domain/1.0.0": {
+      "type": "project",
+      "path": "../Domain/Domain.csproj",
+      "msbuildProject": "../Domain/Domain.csproj"
+    },
+    "IoC/1.0.0": {
+      "type": "project",
+      "path": "../IoC/IoC.csproj",
+      "msbuildProject": "../IoC/IoC.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net6.0": []
+    "net6.0": [
+      "Application >= 1.0.0",
+      "Domain >= 1.0.0",
+      "IoC >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "/home/diogoribeiro/.nuget/packages/": {}
@@ -31,7 +82,17 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "/home/diogoribeiro/RiderProjects/Api-Rest-Security/Application/Application.csproj": {
+              "projectPath": "/home/diogoribeiro/RiderProjects/Api-Rest-Security/Application/Application.csproj"
+            },
+            "/home/diogoribeiro/RiderProjects/Api-Rest-Security/Domain/Domain.csproj": {
+              "projectPath": "/home/diogoribeiro/RiderProjects/Api-Rest-Security/Domain/Domain.csproj"
+            },
+            "/home/diogoribeiro/RiderProjects/Api-Rest-Security/IoC/IoC.csproj": {
+              "projectPath": "/home/diogoribeiro/RiderProjects/Api-Rest-Security/IoC/IoC.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

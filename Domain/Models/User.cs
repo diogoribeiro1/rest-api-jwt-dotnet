@@ -1,4 +1,4 @@
-namespace Api.Model;
+namespace Domain.Models;
 
 public class User
 {

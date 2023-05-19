@@ -1,4 +1,4 @@
-namespace Api;
+namespace Infrastructure;
 
 public static class Settings
 {

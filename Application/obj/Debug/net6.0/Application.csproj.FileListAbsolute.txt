@@ -9,3 +9,4 @@
 /home/diogoribeiro/RiderProjects/Api-Rest-Security/Application/obj/Debug/net6.0/Application.dll
 /home/diogoribeiro/RiderProjects/Api-Rest-Security/Application/obj/Debug/net6.0/ref/Application.dll
 /home/diogoribeiro/RiderProjects/Api-Rest-Security/Application/obj/Debug/net6.0/Application.pdb
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/Application/obj/Debug/net6.0/Application.csproj.AssemblyReference.cache

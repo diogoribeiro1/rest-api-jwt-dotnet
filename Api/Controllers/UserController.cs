@@ -1,6 +1,6 @@
-using Api.Model;
-using Api.Repository;
-using Api.Services;
+using Domain.Models;
+using Infrastructure.Repositories;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,8 +15,17 @@ public class UserController : ControllerBase
     [Authorize(Policy= "Admin")]
     public IResult GetUsers()
     {
+        var userId = HttpContext.User.Identity?.Name;
+        
         var lista = UserRepository.GetAll();
-        return Results.Ok(lista);
+        
+        var response = new
+        {
+            UserLogged = userId,
+            Lista = lista
+        };
+        
+        return Results.Ok(response);
     }
     
     [HttpPost("/auth")]
@@ -40,7 +49,7 @@ public class UserController : ControllerBase
     [HttpPost("/createAdmin")]
     public IResult CreateUserAdmin([FromBody] UserPostDTO userRequest)
     {
-        var user = UserRepository.CreateAdmin(new User
+        var user = UserRepository.CreateAdmin(new User()
         {
             Username = userRequest.Username,
             Pass = userRequest.Pass

@@ -10,3 +10,5 @@
 /home/diogoribeiro/RiderProjects/Api-Rest-Security/Domain/obj/Debug/net6.0/Domain.dll
 /home/diogoribeiro/RiderProjects/Api-Rest-Security/Domain/obj/Debug/net6.0/ref/Domain.dll
 /home/diogoribeiro/RiderProjects/Api-Rest-Security/Domain/obj/Debug/net6.0/Domain.pdb
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/Domain/bin/Debug/net6.0/Domain.runtimeconfig.json
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/Domain/obj/Debug/net6.0/Domain.genruntimeconfig.cache

@@ -1,3 +1,4 @@
+using Domain.Interfaces;
 using Domain.Models;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
@@ -10,56 +11,65 @@ namespace Api.Controllers;
 [Route("api/[controller]")]
 public class UserController : ControllerBase
 {
+    
+    private readonly IUserRepository _userRepository;
+
+    public UserController(IUserRepository userRepository)
+    {
+        _userRepository = userRepository;
+    }
 
     [HttpGet]
     [Authorize(Policy= "Admin")]
-    public IResult GetUsers()
+    public IActionResult GetUsers()
     {
         var userId = HttpContext.User.Identity?.Name;
         
-        var lista = UserRepository.GetAll();
+        var lista = _userRepository.GetAll();
         
         var response = new
         {
             UserLogged = userId,
-            Lista = lista
+            Lista = lista.Result
         };
         
-        return Results.Ok(response);
+        return Ok(response);
     }
     
     [HttpPost("/auth")]
-    public IResult AuthUser([FromBody] UserPostDTO userRequest)
+    public IActionResult AuthUser([FromBody] UserPostDTO userRequest)
     {
 
-        var user = UserRepository.Get(userRequest.Username, userRequest.Pass);
+        var user = _userRepository.GetByUsermaeAndPassword(userRequest.Username, userRequest.Pass);
+       
+        if (user.Result.First() == null)
+            return NotFound("Invalid Credentials");
         
-        if (user == null)
-            return Results.NotFound("Invalid Credentials");
+        var token = TokenService.GenerateToken(user.Result.First());
+        user.Result.First().Password = "";
         
-        var token = TokenService.GenerateToken(user);
-        //user.Pass = "";
-        return Results.Ok( new
+        return Ok( new
         {
-            user = user,
+            user = user.Result.First(),
             token = token
         });
     }
     
     [HttpPost("/createAdmin")]
-    public IResult CreateUserAdmin([FromBody] UserPostDTO userRequest)
+    public IActionResult CreateUserAdmin([FromBody] UserPostDTO userRequest)
     {
-        var user = UserRepository.CreateAdmin(new User()
+        var user = _userRepository.Create(new User()
         {
             Username = userRequest.Username,
-            Pass = userRequest.Pass
+            Password = userRequest.Pass,
+            Role = "manager"
         });
         
-        // user.Pass = "";
+        user.Result.Password = "";
         
-        return Results.Created( string.Empty, new
+        return Created( string.Empty, new
         {
-            user = user
+            user = user.Result
         });
     }
 }

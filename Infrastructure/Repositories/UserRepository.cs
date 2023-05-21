@@ -1,31 +1,62 @@
+using Domain.Interfaces;
 using Domain.Models;
+using Infrastructure.Data.Context;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+
 namespace Infrastructure.Repositories;
 
-public static class UserRepository
+public class UserRepository : IUserRepository
 {
-    
-        static List<User> users = new List<User>()
+    private readonly ApplicationDbContext _db;
+
+    public UserRepository(ApplicationDbContext db)
+    {
+        _db = db;
+    }
+
+    public async Task<User> Create(User user)
+    {
+        _db.Users.Add(user);
+        await _db.SaveChangesAsync();
+        return user;
+    }
+
+    public async Task<ICollection<User>> GetAll()
+    {
+        return await _db.Users.ToListAsync();
+    }
+
+    public async Task<User?> GetById(int id)
+    {
+        return await _db.Users.FindAsync(id);
+    }
+
+    public async Task<EntityEntry<User>> Delete(int id)
+    {
+        var user =  await _db.Users.FindAsync(id);
+
+        var response = _db.Users.Remove(user);
+        await _db.SaveChangesAsync();
+        return response;
+    }
+
+    public async Task<User> Update(User user)
+    {
+        var existingUser = await _db.Users.FindAsync(user.Id);
+
+        if (existingUser != null)
         {
-            new User { Id = 1, Username = "batman", Pass = "batman", Role = "manager" },
-            new User { Id = 2, Username = "robin", Pass = "robin", Role = "employee" }
-        };
-   
-    
-    public static User Get(string username, string pass)
-    {
+            _db.Entry(existingUser).CurrentValues.SetValues(user);
+            await _db.SaveChangesAsync();
+        }
 
-        return users.FirstOrDefault(x => x.Username.ToLower() == username.ToLower() && x.Pass == pass);
-    }
-    
-    public static List<User> GetAll()
-    {
-        return users;
+        return existingUser;
     }
 
-    public static User CreateAdmin(User model)
+    public async Task<IQueryable<User>> GetByUsermaeAndPassword(string username, string password)
     {
-        model.Role = "manager";
-        users.Add(model);
-        return model;
+        var response = _db.Users.Where(u => u.Username == username && u.Password == password);
+        return response;
     }
 }

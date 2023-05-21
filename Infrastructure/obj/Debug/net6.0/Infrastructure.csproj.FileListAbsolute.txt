@@ -4,12 +4,10 @@
 /home/diogoribeiro/RiderProjects/Api-Rest-Security/Infrastructure/bin/Debug/net6.0/Infrastructure.pdb
 /home/diogoribeiro/RiderProjects/Api-Rest-Security/Infrastructure/bin/Debug/net6.0/Application.dll
 /home/diogoribeiro/RiderProjects/Api-Rest-Security/Infrastructure/bin/Debug/net6.0/Domain.dll
-/home/diogoribeiro/RiderProjects/Api-Rest-Security/Infrastructure/bin/Debug/net6.0/IoC.dll
 /home/diogoribeiro/RiderProjects/Api-Rest-Security/Infrastructure/bin/Debug/net6.0/Microsoft.IdentityModel.Tokens.dll
 /home/diogoribeiro/RiderProjects/Api-Rest-Security/Infrastructure/bin/Debug/net6.0/System.IdentityModel.Tokens.Jwt.dll
 /home/diogoribeiro/RiderProjects/Api-Rest-Security/Infrastructure/bin/Debug/net6.0/Application.pdb
 /home/diogoribeiro/RiderProjects/Api-Rest-Security/Infrastructure/bin/Debug/net6.0/Domain.pdb
-/home/diogoribeiro/RiderProjects/Api-Rest-Security/Infrastructure/bin/Debug/net6.0/IoC.pdb
 /home/diogoribeiro/RiderProjects/Api-Rest-Security/Infrastructure/bin/Debug/net6.0/Microsoft.IdentityModel.Tokens.xml
 /home/diogoribeiro/RiderProjects/Api-Rest-Security/Infrastructure/bin/Debug/net6.0/System.IdentityModel.Tokens.Jwt.xml
 /home/diogoribeiro/RiderProjects/Api-Rest-Security/Infrastructure/obj/Debug/net6.0/Infrastructure.csproj.AssemblyReference.cache
@@ -21,3 +19,5 @@
 /home/diogoribeiro/RiderProjects/Api-Rest-Security/Infrastructure/obj/Debug/net6.0/Infrastructure.dll
 /home/diogoribeiro/RiderProjects/Api-Rest-Security/Infrastructure/obj/Debug/net6.0/ref/Infrastructure.dll
 /home/diogoribeiro/RiderProjects/Api-Rest-Security/Infrastructure/obj/Debug/net6.0/Infrastructure.pdb
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/Infrastructure/bin/Debug/net6.0/Infrastructure.runtimeconfig.json
+/home/diogoribeiro/RiderProjects/Api-Rest-Security/Infrastructure/obj/Debug/net6.0/Infrastructure.genruntimeconfig.cache

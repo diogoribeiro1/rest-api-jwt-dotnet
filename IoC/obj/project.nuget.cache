@@ -1,8 +1,25 @@
 {
   "version": 2,
-  "dgSpecHash": "1po+DhQWg4qPELeYaVQtSXCNIkRUqcJe9cMD0V/6K5KGTHWrPVyZenu8/f1Y8csdIjQ4QuUfwtKqjDZDs9ZgvA==",
+  "dgSpecHash": "uN2xe6xRvosCHtTl3WV3K+H56YuH+E+5L/wfmb+c7aEFe6FEQxxhlRrc878Af5zQShBfRIS+j3D5SCVmfw+TvQ==",
   "success": true,
   "projectFilePath": "/home/diogoribeiro/RiderProjects/Api-Rest-Security/IoC/IoC.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/home/diogoribeiro/.nuget/packages/microsoft.entityframeworkcore/8.0.0-preview.4.23259.3/microsoft.entityframeworkcore.8.0.0-preview.4.23259.3.nupkg.sha512",
+    "/home/diogoribeiro/.nuget/packages/microsoft.entityframeworkcore.abstractions/8.0.0-preview.4.23259.3/microsoft.entityframeworkcore.abstractions.8.0.0-preview.4.23259.3.nupkg.sha512",
+    "/home/diogoribeiro/.nuget/packages/microsoft.entityframeworkcore.analyzers/8.0.0-preview.4.23259.3/microsoft.entityframeworkcore.analyzers.8.0.0-preview.4.23259.3.nupkg.sha512",
+    "/home/diogoribeiro/.nuget/packages/microsoft.entityframeworkcore.relational/8.0.0-preview.4.23259.3/microsoft.entityframeworkcore.relational.8.0.0-preview.4.23259.3.nupkg.sha512",
+    "/home/diogoribeiro/.nuget/packages/microsoft.extensions.caching.abstractions/8.0.0-preview.4.23259.5/microsoft.extensions.caching.abstractions.8.0.0-preview.4.23259.5.nupkg.sha512",
+    "/home/diogoribeiro/.nuget/packages/microsoft.extensions.caching.memory/8.0.0-preview.4.23259.5/microsoft.extensions.caching.memory.8.0.0-preview.4.23259.5.nupkg.sha512",
+    "/home/diogoribeiro/.nuget/packages/microsoft.extensions.configuration.abstractions/8.0.0-preview.4.23259.5/microsoft.extensions.configuration.abstractions.8.0.0-preview.4.23259.5.nupkg.sha512",
+    "/home/diogoribeiro/.nuget/packages/microsoft.extensions.dependencyinjection/8.0.0-preview.4.23259.5/microsoft.extensions.dependencyinjection.8.0.0-preview.4.23259.5.nupkg.sha512",
+    "/home/diogoribeiro/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.0-preview.4.23259.5/microsoft.extensions.dependencyinjection.abstractions.8.0.0-preview.4.23259.5.nupkg.sha512",
+    "/home/diogoribeiro/.nuget/packages/microsoft.extensions.logging/8.0.0-preview.4.23259.5/microsoft.extensions.logging.8.0.0-preview.4.23259.5.nupkg.sha512",
+    "/home/diogoribeiro/.nuget/packages/microsoft.extensions.logging.abstractions/8.0.0-preview.4.23259.5/microsoft.extensions.logging.abstractions.8.0.0-preview.4.23259.5.nupkg.sha512",
+    "/home/diogoribeiro/.nuget/packages/microsoft.extensions.options/8.0.0-preview.4.23259.5/microsoft.extensions.options.8.0.0-preview.4.23259.5.nupkg.sha512",
+    "/home/diogoribeiro/.nuget/packages/microsoft.extensions.primitives/8.0.0-preview.4.23259.5/microsoft.extensions.primitives.8.0.0-preview.4.23259.5.nupkg.sha512",
+    "/home/diogoribeiro/.nuget/packages/npgsql/8.0.0-preview.4/npgsql.8.0.0-preview.4.nupkg.sha512",
+    "/home/diogoribeiro/.nuget/packages/npgsql.entityframeworkcore.postgresql/8.0.0-preview.4/npgsql.entityframeworkcore.postgresql.8.0.0-preview.4.nupkg.sha512",
+    "/home/diogoribeiro/.nuget/packages/system.runtime.compilerservices.unsafe/6.0.0/system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

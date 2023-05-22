@@ -54,9 +54,15 @@ public class UserRepository : IUserRepository
         return existingUser;
     }
 
-    public async Task<IQueryable<User>> GetByUsermaeAndPassword(string username, string password)
+    public async Task<IQueryable<User>> GetByUsernameAndPassword(string username, string password)
     {
         var response = _db.Users.Where(u => u.Username == username && u.Password == password);
+        return response;
+    }
+    
+    public async Task<IQueryable<User>> GetByUsername(string username)
+    {
+        var response = _db.Users.Where(u => u.Username.ToLower() == username.ToLower());
         return response;
     }
 }

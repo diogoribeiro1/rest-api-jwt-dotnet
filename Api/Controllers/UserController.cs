@@ -12,11 +12,11 @@ namespace Api.Controllers;
 public class UserController : ControllerBase
 {
     
-    private readonly IUserRepository _userRepository;
+    private readonly IUserServices _userServices;
 
-    public UserController(IUserRepository userRepository)
+    public UserController(IUserServices userServices)
     {
-        _userRepository = userRepository;
+        _userServices = userServices;
     }
 
     [HttpGet]
@@ -25,7 +25,7 @@ public class UserController : ControllerBase
     {
         var userId = HttpContext.User.Identity?.Name;
         
-        var lista = _userRepository.GetAll();
+        var lista = _userServices.GetAll();
         
         var response = new
         {
@@ -40,17 +40,17 @@ public class UserController : ControllerBase
     public IActionResult AuthUser([FromBody] UserPostDTO userRequest)
     {
 
-        var user = _userRepository.GetByUsermaeAndPassword(userRequest.Username, userRequest.Pass);
+        var user = _userServices.GetByUsernameAndPassword(userRequest.Username, userRequest.Pass);
        
-        if (user.Result.First() == null)
+        if (user == null)
             return NotFound("Invalid Credentials");
         
-        var token = TokenService.GenerateToken(user.Result.First());
-        user.Result.First().Password = "";
+        var token = TokenService.GenerateToken(user);
+        user.Password = "";
         
         return Ok( new
         {
-            user = user.Result.First(),
+            user = user,
             token = token
         });
     }
@@ -58,18 +58,46 @@ public class UserController : ControllerBase
     [HttpPost("/createAdmin")]
     public IActionResult CreateUserAdmin([FromBody] UserPostDTO userRequest)
     {
-        var user = _userRepository.Create(new User()
+        var user = _userServices.Create(new User()
         {
             Username = userRequest.Username,
             Password = userRequest.Pass,
             Role = "manager"
         });
         
-        user.Result.Password = "";
+        if (user == null)
+        {
+            return BadRequest("Username Already exists");
+        }
+        
+        user.Password = "";
         
         return Created( string.Empty, new
         {
-            user = user.Result
+            user = user
+        });
+    }
+    
+    [HttpPost("/createEmployee")]
+    public IActionResult CreateUserEmployee([FromBody] UserPostDTO userRequest)
+    {
+        var user = _userServices.Create(new User()
+        {
+            Username = userRequest.Username,
+            Password = userRequest.Pass,
+            Role = "employee"
+        });
+        
+        if (user == null)
+        {
+            return BadRequest("Username Already exists");
+        }
+        
+        user.Password = "";
+        
+        return Created( string.Empty, new
+        {
+            user = user
         });
     }
 }

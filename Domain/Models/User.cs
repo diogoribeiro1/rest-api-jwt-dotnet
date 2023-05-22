@@ -17,4 +17,6 @@ public class User
     
     [Column("Password")]
     public string Password { get; set; }
+    public string Salt { get; set; }
+
 }

@@ -23,7 +23,7 @@ public static class DependencyInjection
     
     public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddScoped<IUserServices, UserServices>();
+        services.AddTransient<IUserServices, UserServices>();
         return services;
     }
 }

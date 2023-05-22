@@ -14,8 +14,7 @@ public class UserServices : IUserServices
     {
         _userRepository = userRepository;
     }
-
-
+    
     public User Create(User user)
     {
         var userResponse = _userRepository.GetByUsername(user.Username);
@@ -44,26 +43,29 @@ public class UserServices : IUserServices
         var response = _userRepository.Create(user);
         return response.Result;
     }
-
-
+    
     public Task<ICollection<User>> GetAll()
     {
         return _userRepository.GetAll();
     }
 
-    public Task<User?> GetById(int id)
+    public async Task<User?> GetById(int id)
     {
-        throw new NotImplementedException();
+       var user = await _userRepository.GetById(id);
+       return user;
     }
 
-    public Task<EntityEntry<User>> Delete(int id)
+    public async Task Delete(int id)
     {
-        throw new NotImplementedException();
+       await _userRepository.Delete(id);
     }
 
-    public Task<User> Update(User user)
+    public async Task<User> Update(User user)
     {
-        throw new NotImplementedException();
+        var userResponse = await _userRepository.GetById(user.Id);
+        userResponse.Username = user.Username;
+        userResponse = await _userRepository.Update(user);
+        return userResponse;
     }
     
     public User GetByUsernameAndPassword(string username, string password)

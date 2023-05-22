@@ -18,5 +18,9 @@ public class User
     [Column("Password")]
     public string Password { get; set; }
     public string Salt { get; set; }
-
+    
+    public override string ToString()
+    {
+        return $"Id: {Id}, Username: {Username}, Role: {Role}, Password: {Password} AND Salt {Salt}"; // ou qualquer outra representação desejada
+    }
 }

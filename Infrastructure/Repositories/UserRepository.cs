@@ -47,7 +47,7 @@ public class UserRepository : IUserRepository
 
         if (existingUser != null)
         {
-            _db.Entry(existingUser).CurrentValues.SetValues(user);
+            existingUser.Username = user.Username; // Atualiza o username
             await _db.SaveChangesAsync();
         }
 

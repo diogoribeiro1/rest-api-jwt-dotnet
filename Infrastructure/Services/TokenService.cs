@@ -9,8 +9,6 @@ namespace Infrastructure.Services
     public class TokenService
     {
         private static readonly string _secretKey = Settings.Secret;
-        private readonly string _issuer;
-        private readonly string _audience;
 
         public static string GenerateToken(User user)
         {

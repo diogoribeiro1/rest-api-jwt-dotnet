@@ -16,7 +16,6 @@ services:
       context: .
       dockerfile: Api/Dockerfile
     environment:
-      - ConnectionStrings__DefaultConnection=Server=containers-us-west-147.railway.app;Port=7133;Database=railway;User Id=postgres;Password=HiSyZIssQm1CsmSVT50I;
       - ASPNETCORE_URLS=http://+:80
     networks:
       - dev

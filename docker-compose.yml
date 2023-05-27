@@ -16,6 +16,7 @@ services:
       context: .
       dockerfile: Api/Dockerfile
     environment:
+      - ConnectionStrings__DefaultConnection=Server=app_db;Port=5432;Database=rest-api-jwt-dotnet;User Id=postgres;Password=postgres;
       - ASPNETCORE_URLS=http://+:80
     networks:
       - dev
@@ -26,7 +27,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=rest-api-jwt-dotnet
+      - POSTGRES_DB=railway
     ports:
       - "5433:5432"
     restart: always

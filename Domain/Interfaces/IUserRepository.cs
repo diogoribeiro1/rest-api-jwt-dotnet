@@ -5,13 +5,13 @@ namespace Domain.Interfaces;
 
 public interface IUserRepository
 {
-    Task<User> Create(User user);
-    Task<ICollection<User>> GetAll();
-    Task<User?> GetById(int id);
-    Task<EntityEntry<User>> Delete(int id);
-    Task<User> Update(User user);
+    Task<User> CreateAsync(User user);
+    Task<ICollection<User>> GetAllAsync();
+    Task<User?> GetByIdAsync(int id);
+    Task<EntityEntry<User>> DeleteAsync(int id);
+    Task<User> UpdateAsync(User user, int id);
     
-    Task<IQueryable<User>> GetByUsernameAndPassword(string username, string password);
-    Task<IQueryable<User>> GetByUsername(string username);
+    IQueryable<User> GetByUsernameAndPasswordAsync(string username, string password);
+    IQueryable<User> GetByUsernameAsync(string username);
 
 }

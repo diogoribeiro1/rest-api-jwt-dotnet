@@ -1,8 +1,6 @@
 using Domain.Interfaces;
 using Domain.Models;
 using System.Security.Cryptography;
-using Infrastructure.Repositories;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Infrastructure.Services;
 
@@ -17,8 +15,8 @@ public class UserServices : IUserServices
     
     public User Create(User user)
     {
-        var userResponse = _userRepository.GetByUsername(user.Username);
-        if (userResponse.Result.Any())
+        var userResponse = _userRepository.GetByUsernameAsync(user.Username);
+        if (userResponse.Any())
             return null;
 
         // Generate a salt
@@ -40,41 +38,39 @@ public class UserServices : IUserServices
         user.Salt = saltString;
         user.Password = hashedPasswordString;
 
-        var response = _userRepository.Create(user);
+        var response = _userRepository.CreateAsync(user);
         return response.Result;
     }
     
     public Task<ICollection<User>> GetAll()
     {
-        return _userRepository.GetAll();
+        return _userRepository.GetAllAsync();
     }
 
     public async Task<User?> GetById(int id)
     {
-       var user = await _userRepository.GetById(id);
+       var user = await _userRepository.GetByIdAsync(id);
        return user;
     }
 
     public async Task Delete(int id)
     {
-       await _userRepository.Delete(id);
+       await _userRepository.DeleteAsync(id);
     }
 
     public async Task<User> Update(User user)
     {
-        var userResponse = await _userRepository.GetById(user.Id);
-        userResponse.Username = user.Username;
-        userResponse = await _userRepository.Update(user);
-        return userResponse;
+        var response = await _userRepository.UpdateAsync(user, user.Id);
+        return response;
     }
     
     public User GetByUsernameAndPassword(string username, string password)
     {
-        var userResponse = _userRepository.GetByUsername(username);
-        if (!userResponse.Result.Any())
+        var userResponse = _userRepository.GetByUsernameAsync(username);
+        if (!userResponse.Any())
             return null;
 
-        var user = userResponse.Result.First();
+        var user = userResponse.First();
         string storedSalt = user.Salt;
         string storedHashedPassword = user.Password;
 

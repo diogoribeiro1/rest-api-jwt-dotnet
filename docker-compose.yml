@@ -6,18 +6,33 @@ networks:
 
 services:
   api-jwt:
-    image: docker.io/library/api-jwt 
-    container_name: api-jwt-services-2
+    image: docker.io/library/api-jwt
+    container_name: api-jwt-services-3
     ports:
       - "8088:80"
     build:
       context: .
       dockerfile: Api/Dockerfile
     environment:
-      - ConnectionStrings__DefaultConnection=Server=containers-us-west-170.railway.app;Port=7238;Database=railway;User Id=postgres;Password=4hy0c6GlKj3YGa71tZ0i;
+      - ConnectionStrings__DefaultConnection=Server=app_db;Port=5432;Database=rest-api-jwt-dotnet;User Id=postgres;Password=postgres;
       - ASPNETCORE_URLS=http://+:80
     networks:
       - dev
-      
+        
+  app_db:
+      image: postgres:latest
+      container_name: app_db
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+        - POSTGRES_DB=rest-api-jwt-dotnet
+      ports:
+        - "5433:5432"
+      restart: always
+      volumes:
+        - app_data:/var/lib/postgresql/data
+      networks:
+        - dev
+
 volumes:
-   app_data:
+  app_data:

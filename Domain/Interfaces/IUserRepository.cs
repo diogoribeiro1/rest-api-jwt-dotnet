@@ -11,7 +11,7 @@ public interface IUserRepository
     Task<EntityEntry<User>> DeleteAsync(int id);
     Task<User> UpdateAsync(User user, int id);
     
-    IQueryable<User> GetByUsernameAndPasswordAsync(string username, string password);
-    IQueryable<User> GetByUsernameAsync(string username);
+    Task<User?> GetByUsernameAndPasswordAsync(string username, string password);
+    Task<User?> GetByUsernameAsync(string username);
 
 }

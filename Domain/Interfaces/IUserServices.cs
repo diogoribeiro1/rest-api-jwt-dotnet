@@ -5,11 +5,11 @@ namespace Domain.Interfaces;
 
 public interface IUserServices
 {
-    User Create(User user);
-    Task<ICollection<User>> GetAll();
-    Task<User?> GetById(int id);
-    Task Delete(int id);
-    Task<User> Update(User user);
+    Task<User> CreateAsync(User user);
+    Task<ICollection<User>> GetAllAsync();
+    Task<User?> GetByIdAsync(int id);
+    Task DeleteAsync(int id);
+    Task<User> UpdateAsync(User user);
     
-    User GetByUsernameAndPassword(string username, string password);
+    Task<User> GetByUsernameAndPasswordAsync(string username, string password);
 }

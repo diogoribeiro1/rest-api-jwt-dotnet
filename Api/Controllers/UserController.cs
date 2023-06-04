@@ -25,7 +25,7 @@ public class UserController : ControllerBase
     {
         var userId = HttpContext.User.Identity?.Name;
         
-        var lista = await _userServices.GetAll();
+        var lista = await _userServices.GetAllAsync();
         
         var response = new
         {
@@ -37,11 +37,13 @@ public class UserController : ControllerBase
     
     [HttpGet("{id}")]
     [Authorize(Policy= "Admin")]
-    public async Task<OkObjectResult> GetAnUser([FromRoute] int id)
+    public async Task<OkObjectResult> GetUserById([FromRoute] int id)
     {
         var userId = HttpContext.User.Identity?.Name;
 
-        var userResponse = await _userServices.GetById(id);
+        var userResponse = await _userServices.GetByIdAsync(id);
+
+        userResponse.Password = "";
         
         var response = new
         {
@@ -52,14 +54,11 @@ public class UserController : ControllerBase
     }
     
     [HttpPost("/auth")]
-    public IActionResult AuthUser([FromBody] CreateUserDTO createUserRequest)
+    public async Task<IActionResult> AuthUser([FromBody] CreateUserDTO createUserRequest)
     {
 
-        var user = _userServices.GetByUsernameAndPassword(createUserRequest.Username, createUserRequest.Pass);
-       
-        if (user == null)
-            return NotFound("Invalid Credentials");
-        
+        var user = await _userServices.GetByUsernameAndPasswordAsync(createUserRequest.Username, createUserRequest.Pass);
+
         var token = TokenService.GenerateToken(user);
         user.Password = "";
         
@@ -71,20 +70,15 @@ public class UserController : ControllerBase
     }
     
     [HttpPost("/createAdmin")]
-    public IActionResult CreateUserAdmin([FromBody] CreateUserDTO createUserRequest)
+    public async Task<IActionResult> CreateUserAdmin([FromBody] CreateUserDTO createUserRequest)
     {
-        var user = _userServices.Create(new User()
+        var user = await _userServices.CreateAsync(new User()
         {
             Username = createUserRequest.Username,
             Password = createUserRequest.Pass,
             Role = "manager"
         });
-        
-        if (user == null)
-        {
-            return BadRequest("Username Already exists");
-        }
-        
+
         user.Password = "";
         
         return Created( string.Empty, new
@@ -94,20 +88,15 @@ public class UserController : ControllerBase
     }
     
     [HttpPost("/createEmployee")]
-    public IActionResult CreateUserEmployee([FromBody] CreateUserDTO createUserRequest)
+    public async Task<IActionResult> CreateUserEmployee([FromBody] CreateUserDTO createUserRequest)
     {
-        var user = _userServices.Create(new User()
+        var user = await _userServices.CreateAsync(new User()
         {
             Username = createUserRequest.Username,
             Password = createUserRequest.Pass,
             Role = "employee"
         });
-        
-        if (user == null)
-        {
-            return BadRequest("Username Already exists");
-        }
-        
+
         user.Password = "";
         
         return Created( string.Empty, new
@@ -119,7 +108,7 @@ public class UserController : ControllerBase
     [HttpPut("{id}")]
     public async Task<OkObjectResult> UpdateUser([FromBody] UpdateUserDTO updateUserDto, [FromRoute] int id)
     {
-        var user = await _userServices.Update(new User()
+        var user = await _userServices.UpdateAsync(new User()
         {
             Id = id,
             Username = updateUserDto.Username
@@ -134,7 +123,7 @@ public class UserController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<NoContentResult> DeleteUser([FromRoute] int id)
     {
-        await _userServices.Delete(id);
+        await _userServices.DeleteAsync(id);
         return NoContent();
     }
 }

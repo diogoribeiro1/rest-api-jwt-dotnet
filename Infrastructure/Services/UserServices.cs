@@ -1,6 +1,8 @@
+using System.Collections;
 using Domain.Interfaces;
 using Domain.Models;
 using System.Security.Cryptography;
+using Infrastructure.Exceptions;
 
 namespace Infrastructure.Services;
 
@@ -13,85 +15,72 @@ public class UserServices : IUserServices
         _userRepository = userRepository;
     }
     
-    public User Create(User user)
-    {
-        var userResponse = _userRepository.GetByUsernameAsync(user.Username);
-        if (userResponse.Any())
-            return null;
-
-        // Generate a salt
-        byte[] salt;
-        new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
-
-        // Hash the password with the salt
-        byte[] hashedPassword;
-        using (var pbkdf2 = new Rfc2898DeriveBytes(user.Password, salt, 10000))
+     public async Task<User> CreateAsync(User user)
         {
-            hashedPassword = pbkdf2.GetBytes(20); // 20 is the size of the hashed password
+            var existingUser = await _userRepository.GetByUsernameAsync(user.Username);
+            if (existingUser != null)
+                throw new UsernameAlreadyExistsException();
+
+            byte[] salt = new byte[16];
+            using (var rng = new RNGCryptoServiceProvider())
+            {
+                rng.GetBytes(salt);
+            }
+
+            byte[] hashedPassword;
+            using (var pbkdf2 = new Rfc2898DeriveBytes(user.Password, salt, 10000))
+            {
+                hashedPassword = pbkdf2.GetBytes(20);
+            }
+
+            user.Salt = Convert.ToBase64String(salt);
+            user.Password = Convert.ToBase64String(hashedPassword);
+            
+            var response = await _userRepository.CreateAsync(user);
+            return response;
         }
 
-        // Convert the byte arrays to base64-encoded strings
-        string saltString = Convert.ToBase64String(salt);
-        string hashedPasswordString = Convert.ToBase64String(hashedPassword);
-
-        // Store the salt and hashed password in the User object
-        user.Salt = saltString;
-        user.Password = hashedPasswordString;
-
-        var response = _userRepository.CreateAsync(user);
-        return response.Result;
-    }
-    
-    public Task<ICollection<User>> GetAll()
-    {
-        return _userRepository.GetAllAsync();
-    }
-
-    public async Task<User?> GetById(int id)
-    {
-       var user = await _userRepository.GetByIdAsync(id);
-       return user;
-    }
-
-    public async Task Delete(int id)
-    {
-       await _userRepository.DeleteAsync(id);
-    }
-
-    public async Task<User> Update(User user)
-    {
-        var response = await _userRepository.UpdateAsync(user, user.Id);
-        return response;
-    }
-    
-    public User GetByUsernameAndPassword(string username, string password)
-    {
-        var userResponse = _userRepository.GetByUsernameAsync(username);
-        if (!userResponse.Any())
-            return null;
-
-        var user = userResponse.First();
-        string storedSalt = user.Salt;
-        string storedHashedPassword = user.Password;
-
-        // Convert the base64-encoded salt and hashed password to byte arrays
-        byte[] salt = Convert.FromBase64String(storedSalt);
-        byte[] hashedPassword = Convert.FromBase64String(storedHashedPassword);
-
-        // Hash the provided password with the stored salt
-        byte[] providedPasswordHash;
-        using (var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000))
+        public async Task<ICollection<User>> GetAllAsync()
         {
-            providedPasswordHash = pbkdf2.GetBytes(20); // 20 is the size of the hashed password
+            return await _userRepository.GetAllAsync();
         }
 
-        // Compare the generated hashed password with the stored hashed password
-        if (providedPasswordHash.SequenceEqual(hashedPassword))
+        public async Task<User?> GetByIdAsync(int id)
         {
+            var user = await _userRepository.GetByIdAsync(id);
             return user;
         }
 
-        return null;
-    }
+        public async Task DeleteAsync(int id)
+        {
+            await _userRepository.DeleteAsync(id);
+        }
 
+        public async Task<User> UpdateAsync(User user)
+        {
+            var response = await _userRepository.UpdateAsync(user, user.Id);
+            return response;
+        }
+
+        public async Task<User> GetByUsernameAndPasswordAsync(string username, string password)
+        {
+            var user = await _userRepository.GetByUsernameAsync(username);
+            if (user == null)
+                throw new UserNotFoundException();
+
+            byte[] storedSalt = Convert.FromBase64String(user.Salt);
+            byte[] storedHashedPassword = Convert.FromBase64String(user.Password);
+
+            byte[] providedPasswordHash;
+            using (var pbkdf2 = new Rfc2898DeriveBytes(password, storedSalt, 10000))
+            {
+                providedPasswordHash = pbkdf2.GetBytes(20);
+            }
+
+            if (StructuralComparisons.StructuralEqualityComparer.Equals(providedPasswordHash, storedHashedPassword))
+            {
+                return user;
+            }
+            throw new WrongPasswordException();
+        }
 }

@@ -4,59 +4,74 @@ using Infrastructure.Exceptions;
 
 namespace Api.Middlewares;
 
-public class ExceptionHandlerMiddleware
-{
-    private readonly RequestDelegate _next;
-    private readonly ILogger<ExceptionHandlerMiddleware> _logger;
-
-    public ExceptionHandlerMiddleware(RequestDelegate next, ILogger<ExceptionHandlerMiddleware> logger)
+ public class ExceptionHandlerMiddleware
     {
-        _next = next;
-        _logger = logger;
-    }
+        private readonly RequestDelegate _next;
+        private readonly ILogger<ExceptionHandlerMiddleware> _logger;
 
-    public async Task Invoke(HttpContext context)
-    {
-        try
+        public ExceptionHandlerMiddleware(RequestDelegate next, ILogger<ExceptionHandlerMiddleware> logger)
         {
-            await _next(context);
+            _next = next;
+            _logger = logger;
         }
-        catch (Exception ex)
+
+        public async Task Invoke(HttpContext context)
         {
-            _logger.LogError(ex, "An unhandled exception occurred.");
-            var userNotFoundException = new UserNotFoundException();
-            var textPayload = "";
-            
-            if (ex.GetBaseException().GetType() == typeof(UserNotFoundException))
+            try
             {
-                _logger.LogError(ex, "User Not Found Exception.");
-                textPayload = "User Not Found";
+                await _next(context);
             }
-            
-            var errorResponse = new ErrorResponse
+            catch (Exception ex)
             {
-                Message = textPayload,
-            };
+                _logger.LogError(ex, "An unhandled exception occurred.");
 
-            context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int) HttpStatusCode.NotFound;
-            var errorJson = JsonSerializer.Serialize(errorResponse);
-            await context.Response.WriteAsync(errorJson);
+                var statusCode = HttpStatusCode.BadRequest;
+                string message;
+
+                switch (ex.GetBaseException())
+                {
+                    case UserNotFoundException _:
+                        _logger.LogError(ex, "User Not Found Exception.");
+                        message = "User Not Found";
+                        break;
+                    case UsernameAlreadyExistsException _:
+                        _logger.LogError(ex, "Username Already exists");
+                        message = "Username Already exists";
+                        break;
+                    case WrongPasswordException _:
+                        _logger.LogError(ex, "Wrong password");
+                        message = "Wrong password";
+                        break;
+                    default:
+                        message = "An error occurred";
+                        statusCode = HttpStatusCode.InternalServerError;
+                        break;
+                }
+
+                var errorResponse = new ErrorResponse
+                {
+                    Message = message,
+                };
+
+                var errorJson = JsonSerializer.Serialize(errorResponse);
+                context.Response.ContentType = "application/json";
+                context.Response.StatusCode = (int)statusCode;
+                await context.Response.WriteAsync(errorJson);
+            }
         }
     }
-}
 
-public static class ExceptionHandlerExtensions
-{
-    public static IApplicationBuilder UseExceptionHandlerMiddleware(this IApplicationBuilder app)
+    public static class ExceptionHandlerExtensions
     {
-        app.UseMiddleware<ExceptionHandlerMiddleware>();
-        return app;
+        public static IApplicationBuilder UseExceptionHandlerMiddleware(this IApplicationBuilder app)
+        {
+            app.UseMiddleware<ExceptionHandlerMiddleware>();
+            return app;
+        }
     }
-}
 
-public class ErrorResponse
-{
-    public string Message { get; set; }
-    // Include additional properties as needed
-}
+    public class ErrorResponse
+    {
+        public string Message { get; set; }
+        // Include additional properties as needed
+    }

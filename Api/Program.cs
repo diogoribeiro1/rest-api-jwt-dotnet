@@ -74,6 +74,7 @@ if (!app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 app.UseCors(MyAllowSpecificOrigins);
 
 app.UseExceptionHandlerMiddleware();

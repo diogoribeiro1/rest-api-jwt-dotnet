@@ -12,4 +12,7 @@ public interface IUserServices
     Task<User> UpdateAsync(User user);
     
     Task<User> GetByUsernameAndPasswordAsync(string username, string password);
+    
+    Task<List<User>> GetUsersByUsername(string username);
+
 }

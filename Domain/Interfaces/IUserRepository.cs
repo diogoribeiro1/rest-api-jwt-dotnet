@@ -14,4 +14,6 @@ public interface IUserRepository
     Task<User?> GetByUsernameAndPasswordAsync(string username, string password);
     Task<User?> GetByUsernameAsync(string username);
 
+    Task<List<User>> GetUsersByUsernameAsync(string username);
+
 }

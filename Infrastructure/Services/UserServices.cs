@@ -51,6 +51,12 @@ public class UserServices : IUserServices
             return user;
         }
 
+        public async Task<List<User>> GetUsersByUsername(string username)
+        {
+            var users = await _userRepository.GetUsersByUsernameAsync(username);
+            return users;
+        }
+
         public async Task DeleteAsync(int id)
         {
             await _userRepository.DeleteAsync(id);

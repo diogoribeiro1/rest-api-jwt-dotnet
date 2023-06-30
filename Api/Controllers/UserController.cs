@@ -53,6 +53,22 @@ public class UserController : ControllerBase
         return Ok(response);
     }
     
+    [HttpGet("/findByUsername")]
+    [Authorize(Policy= "Admin")]
+    public async Task<OkObjectResult> GetUsersByUsername([FromQuery] string username)
+    {
+        var userId = HttpContext.User.Identity?.Name;
+
+        var listUsersResponse = await _userServices.GetUsersByUsername(username);
+
+        var response = new
+        {
+            UserLogged = userId,
+            user = listUsersResponse
+        };
+        return Ok(response);
+    }
+    
     [HttpPost("/auth")]
     public async Task<IActionResult> AuthUser([FromBody] CreateUserDTO createUserRequest)
     {

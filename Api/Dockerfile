@@ -3,6 +3,10 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
+# Instalar o cliente do PostgreSQL
+RUN apt-get update \
+    && apt-get install -y postgresql-client
+
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["Api/Api.csproj", "Api/"]

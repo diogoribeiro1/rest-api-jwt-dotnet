@@ -65,4 +65,10 @@ public class UserRepository : IUserRepository
         var response = await _db.Users.FirstOrDefaultAsync(u => u.Username.ToLower() == username.ToLower());
         return response;
     }
+    
+    public async Task<List<User>> GetUsersByUsernameAsync(string username)
+    {
+        var response = await _db.Users.Where(u => u.Username.Contains(username)).ToListAsync();
+        return response;
+    }
 }
